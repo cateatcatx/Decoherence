@@ -1,32 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Decoherence.CommandLineSerialization
 {
     public class StringUnescaper
     {
-        private readonly string mStr;
-        private readonly Dictionary<char, int> mCh2Value;
-        private readonly char mEscapeCh;
+        private string? mStr;
         private int mIndex;
+        private Dictionary<char, int>? mCharMapping;
         
-        /// <param name="str">原始字符串</param>
-        /// <param name="ch2Value">需要转义的字符映射，转义的字符会被映射成int值</param>
-        /// <param name="escapeCh">转义字符</param>
-        public StringUnescaper(
-            string str,
-            Dictionary<char, int> ch2Value,
-            char escapeCh = '\\')
+        private readonly char mEscapeCh;
+
+        /// <param name="escapeCh">转义符</param>
+        public StringUnescaper(char escapeCh = '\\')
+        {
+            mEscapeCh = escapeCh;
+        }
+        
+        public void Reset(string str)
         {
             mStr = str;
-            mCh2Value = ch2Value;
-            mEscapeCh = escapeCh;
-            
-            Reset();
+            mIndex = -1;
         }
 
-        public void Reset()
+        /// <param name="charMapping">需要转义的字符映射，转义的字符会被映射成int值</param>
+        public void SetCharMapping(Dictionary<char, int>? charMapping)
         {
-            mIndex = -1;
+            mCharMapping = charMapping;
+        }
+
+        /// <summary>
+        /// 判断是否还有可读的字符
+        /// </summary>
+        public bool HasAnyChar()
+        {
+            
         }
 
         /// <summary>
@@ -51,7 +60,7 @@ namespace Decoherence.CommandLineSerialization
             if (ch == mEscapeCh && mIndex + 1 < mStr.Length)
             {// 转义
                 var nextCh = mStr[mIndex + 1];
-                if (nextCh == mEscapeCh || mCh2Value.ContainsKey(nextCh))
+                if (nextCh == mEscapeCh || mCharMapping.ContainsKey(nextCh))
                 {
                     ch = nextCh;
                     ++mIndex;
@@ -60,13 +69,52 @@ namespace Decoherence.CommandLineSerialization
                 return mIndex < mStr.Length;
             }
             
-            if (mCh2Value.TryGetValue(ch.Value, out var tmp))
+            if (mCharMapping.TryGetValue(ch.Value, out var tmp))
             {
                 ch = null;
                 value = tmp;
             }
             
             return true;
+        }
+
+        public bool MovePrev()
+        {
+            if (mStr == null)
+                throw _NewNonResetException();
+            
+            if (mIndex <= -1)
+            {
+                return false;
+            }
+
+            if (mIndex - 2 >= 0 && mStr[mIndex - 2] == mEscapeCh)
+            {
+                mIndex -= 2;
+            }
+            else
+            {
+                --mIndex;
+            }
+
+            return true;
+        }
+
+        public void ReadToEnd(StringBuilder stringBuilder)
+        {
+            while (ReadChar(out var ch, out var value))
+            {
+                if (ch != null)
+                {
+                    stringBuilder.Append(ch);
+                }
+            }
+            
+        }
+
+        private InvalidOperationException _NewNonResetException()
+        {
+            return new InvalidOperationException("Need invoke Reset first.");
         }
     }
 }
