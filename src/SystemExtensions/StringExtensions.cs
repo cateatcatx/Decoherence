@@ -6,18 +6,38 @@ namespace Decoherence.SystemExtensions
 {
     public static class StringExtensions
     {
-        public static bool IsNullOrWhiteSpace(this string str)
+        /// <summary>
+        /// 判断字符串是否全为字母
+        /// </summary>
+        public static bool IsAlpha(this string self)
         {
-#if NET35
-            return string.IsNullOrEmpty(str) || str.Trim() == "";
-#else
-            return string.IsNullOrWhiteSpace(str);
-#endif
-        }
+            if (string.IsNullOrWhiteSpace(self))
+                return false;
 
-        public static bool IsNullOrEmpty(this string str)
+            foreach (var ch in self)
+            {
+                if (!ch.IsAlpha())
+                    return false;
+            }
+
+            return true;
+        }
+        
+        /// <summary>
+        /// 判断字符串是否全为数字
+        /// </summary>
+        public static bool IsDigit(this string self)
         {
-            return string.IsNullOrEmpty(str);
+            if (string.IsNullOrWhiteSpace(self))
+                return false;
+
+            foreach (var ch in self)
+            {
+                if (!ch.IsDigit())
+                    return false;
+            }
+
+            return true;
         }
     }
 }
