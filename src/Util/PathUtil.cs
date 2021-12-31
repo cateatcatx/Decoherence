@@ -40,7 +40,7 @@ namespace Decoherence
 
         public static string GetFirstMatchPath(string pathPattern)
         {
-            if (pathPattern.IsNullOrWhiteSpace())
+            if (string.IsNullOrWhiteSpace(pathPattern))
             {
                 throw new ArgumentNullException(nameof(pathPattern));
             }
