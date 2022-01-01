@@ -25,7 +25,7 @@ namespace Decoherence
     /// 路径相关工具函数，路径的概念包括文件和文件夹
     /// thread safe
     /// </summary>
-    public static class PathUtils
+    public static class PathUtil
     {
         public static string directorySeparator
         {
@@ -33,7 +33,7 @@ namespace Decoherence
             private set;
         }
 
-        static PathUtils()
+        static PathUtil()
         {
             directorySeparator = Path.DirectorySeparatorChar + "";
         }
@@ -145,7 +145,7 @@ namespace Decoherence
             var sourState = GetPathState(sourPath);
             if (sourState == PathState.None) throw new ArgumentException($"源路径'{sourPath}'不存在！", nameof(sourPath));
 
-            DirUtils.TryCreateParentDir(destPath);
+            DirUtil.TryCreateParentDir(destPath);
 
             var destState = GetPathState(destPath);
             if (destState != PathState.None)
@@ -221,7 +221,7 @@ namespace Decoherence
                 {
                     if (force)
                     {
-                        PathUtils.DeletePath(destPath);
+                        PathUtil.DeletePath(destPath);
                     }
                     else
                     {
@@ -230,18 +230,18 @@ namespace Decoherence
                 }
 
                 
-                DirUtils.TryCreateDir(destPath);
+                DirUtil.TryCreateDir(destPath);
 
                 var files = Directory.GetFiles(Path.GetDirectoryName(sourPath), Path.GetFileName(sourPath));
                 foreach (var f in files)
                 {
-                    PathUtils.CopyPath(f, Path.Combine(destPath, Path.GetFileName(f)), force);
+                    PathUtil.CopyPath(f, Path.Combine(destPath, Path.GetFileName(f)), force);
                 }
 
                 var dirs = Directory.GetDirectories(Path.GetDirectoryName(sourPath), Path.GetFileName(sourPath));
                 foreach (var d in dirs)
                 {
-                    PathUtils.CopyPath(d, Path.Combine(destPath, Path.GetFileName(d)), force);
+                    PathUtil.CopyPath(d, Path.Combine(destPath, Path.GetFileName(d)), force);
                 }
             }
             else
@@ -257,7 +257,7 @@ namespace Decoherence
                     throw new IOException("can't overwrite sourPath's parent dir!");
                 }
 
-                DirUtils.TryCreateParentDir(destPath, force);
+                DirUtil.TryCreateParentDir(destPath, force);
                 TryDeletePath(destPath);
                 if (sourState == PathState.File)
                 {
@@ -265,7 +265,7 @@ namespace Decoherence
                 }
                 else if (sourState == PathState.Dir)
                 {
-                    DirUtils.CopyDir(sourPath, destPath, true);
+                    DirUtil.CopyDir(sourPath, destPath, true);
                 }
             }
         }

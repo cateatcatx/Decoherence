@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Decoherence
 {
-    public static class DirUtils
+    public static class DirUtil
     {
         /// <summary>
         /// 拷贝目录
@@ -41,12 +41,12 @@ namespace Decoherence
             {
                 var dir = dirs[i];
                 var fullPathDir = rootPath + dir;
-                var state = PathUtils.GetPathState(fullPathDir);
+                var state = PathUtil.GetPathState(fullPathDir);
                 if (state == PathState.File)
                 {
                     if (force)
                     {
-                        PathUtils.TryDeletePath(fullPathDir);
+                        PathUtil.TryDeletePath(fullPathDir);
                     }
                     else
                     {
@@ -75,7 +75,7 @@ namespace Decoherence
         public static bool TryCreateParentDir(string path, bool force = false)
         {
             var dirName = Path.GetDirectoryName(path);
-            if (!string.IsNullOrEmpty(dirName) && dirName != PathUtils.directorySeparator)
+            if (!string.IsNullOrEmpty(dirName) && dirName != PathUtil.directorySeparator)
             {
                 return TryCreateDir(dirName, force);
             }

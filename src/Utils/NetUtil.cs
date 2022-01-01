@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Decoherence
 {
-    public static class NetUtils
+    public static class NetUtil
     {
         public static bool SameIp(string ip1, string ip2)
         {
