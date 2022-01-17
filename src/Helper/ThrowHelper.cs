@@ -20,7 +20,7 @@ namespace Decoherence
         /// <exception cref="ArgumentException"></exception>
         public static void ThrowIfArgumentNullOrWhiteSpace(string arg, string paramName = null, string message = null)
         {
-            if (arg.IsNullOrWhiteSpace())
+            if (string.IsNullOrWhiteSpace(arg))
             {
                 throw new ArgumentException(message ?? "Value cannot be null or whitespace.", paramName);
             }
