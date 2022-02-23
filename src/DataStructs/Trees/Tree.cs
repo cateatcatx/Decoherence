@@ -65,7 +65,7 @@ namespace Decoherence.Collections.Trees
 
         private Node _CheckNode(IReadOnlyNode node, string paramName)
         {
-            ThrowHelper.ThrowIfArgumentNull(node, paramName);
+            ThrowUtil.ThrowIfArgumentNull(node, paramName);
             
             var checkingNode = (Node)node;
             if (checkingNode.mTree != this)

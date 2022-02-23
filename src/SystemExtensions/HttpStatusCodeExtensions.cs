@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class HttpStatusCodeExtensions
+#else
     public static class HttpStatusCodeExtensions
+#endif
     {
         public static bool IsSuccess(this HttpStatusCode code)
         {

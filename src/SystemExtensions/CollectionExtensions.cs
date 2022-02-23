@@ -4,7 +4,15 @@ using System.Text;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class CollectionExtensions
+#else
+#if HIDE_DECOHERENCE
+    internal static class CollectionExtensions
+#else
     public static class CollectionExtensions
+#endif
+#endif
     {
 #if NET35
         public static bool IsEmpty<T>(this ICollection<T> collection)
@@ -17,7 +25,7 @@ namespace Decoherence.SystemExtensions
 
         public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> adds)
         {
-            ThrowHelper.ThrowIfArgumentNull(collection, nameof(collection));
+            ThrowUtil.ThrowIfArgumentNull(collection, nameof(collection));
             
             if (adds != null)
             {
@@ -30,7 +38,7 @@ namespace Decoherence.SystemExtensions
 
         public static void RemoveRange<T>(this ICollection<T> collection, IEnumerable<T> removes)
         {
-            ThrowHelper.ThrowIfArgumentNull(collection, nameof(collection));
+            ThrowUtil.ThrowIfArgumentNull(collection, nameof(collection));
 
             if (removes != null)
             {

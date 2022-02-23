@@ -5,7 +5,11 @@ using System.Linq;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class ListExtensions
+#else
     public static class ListExtensions
+#endif
     {
         public static void BubbleSort<T>(this IList<T> list, Func<T, T, int> comparer)
         {
@@ -38,8 +42,8 @@ namespace Decoherence.SystemExtensions
 
         public static void SwapItem<T>(this IList<T> list, int targetIndex, Func<T, bool> predicate)
         {
-            ThrowHelper.ThrowIfArgumentNull(list);
-            ThrowHelper.ThrowIfArgumentNull(predicate);
+            ThrowUtil.ThrowIfArgumentNull(list);
+            ThrowUtil.ThrowIfArgumentNull(predicate);
             if (targetIndex >= list.Count) throw new ArgumentOutOfRangeException(nameof(targetIndex));
 
             var index = list.FindIndex(predicate);
@@ -80,8 +84,8 @@ namespace Decoherence.SystemExtensions
         public static bool TryFind<T>(this IReadOnlyList<T> list, Predicate<T> match, out T result)
 #endif
         {
-            ThrowHelper.ThrowIfArgumentNull(list);
-            ThrowHelper.ThrowIfArgumentNull(match);
+            ThrowUtil.ThrowIfArgumentNull(list);
+            ThrowUtil.ThrowIfArgumentNull(match);
 
             result = default;
 
@@ -122,8 +126,8 @@ namespace Decoherence.SystemExtensions
         /// <exception cref="InvalidOperationException"> 找不到匹配的item </exception>
         public static T FindThrow<T>(this IReadOnlyList<T> list, Predicate<T> match)
         {
-            ThrowHelper.ThrowIfArgumentNull(list);
-            ThrowHelper.ThrowIfArgumentNull(match);
+            ThrowUtil.ThrowIfArgumentNull(list);
+            ThrowUtil.ThrowIfArgumentNull(match);
 
             foreach (var item in list)
             {

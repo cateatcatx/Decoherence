@@ -5,14 +5,22 @@ using Decoherence.SystemExtensions;
 
 namespace Decoherence
 {
+#if HIDE_DECOHERENCE
+    internal enum PathState
+#else
     public enum PathState
+#endif
     {
         None, // 路径不含文件和目录
         File, // 路径存在文件
         Dir, // 路径存在目录
     }
 
+#if HIDE_DECOHERENCE
+    internal enum PathRelation
+#else
     public enum PathRelation
+#endif
     {
         Same, // 路径一致
         Child, // 子关系，比如 A/B/C 是 A 的子  
@@ -25,7 +33,11 @@ namespace Decoherence
     /// 路径相关工具函数，路径的概念包括文件和文件夹
     /// thread safe
     /// </summary>
+#if HIDE_DECOHERENCE
+    internal static class PathUtil
+#else
     public static class PathUtil
+#endif
     {
         public static string directorySeparator
         {

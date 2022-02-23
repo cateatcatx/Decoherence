@@ -5,7 +5,11 @@ using System.Threading;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class ReaderWriterLockSlimExtensions
+#else
     public static class ReaderWriterLockSlimExtensions
+#endif
     {
         public static void WriteDo(this ReaderWriterLockSlim lockSlim, Action action)
         {

@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class WaitHandleExtensions
+#else
     public static class WaitHandleExtensions
+#endif
     {
 #if !NET35
         public static Task WaitOneAsync(this WaitHandle waitHandle)

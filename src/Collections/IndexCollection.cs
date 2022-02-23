@@ -30,7 +30,7 @@ namespace Decoherence
 
         public IndexCollection(Func<TValue, TIndex> indexGetter)
         {
-            ThrowHelper.ThrowIfArgumentNull(indexGetter, nameof(indexGetter));
+            ThrowUtil.ThrowIfArgumentNull(indexGetter, nameof(indexGetter));
 
             mIndexGetter = indexGetter;
         }

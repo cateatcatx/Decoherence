@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace Decoherence.Collections.Trees
 {
+#if HIDE_DECOHERENCE
+    internal static class TreeAlgorithms
+#else
     public static class TreeAlgorithms
+#endif
     {
         public static async Task GenerateChildrenAsync<TNode, TData>(this ITree<TData> tree,
             TNode parent,
@@ -15,9 +19,9 @@ namespace Decoherence.Collections.Trees
             bool recursive)
             where TNode : class, IReadOnlyNode<TData>
         {
-            ThrowHelper.ThrowIfArgumentNull(tree, nameof(tree));
-            ThrowHelper.ThrowIfArgumentNull(parent, nameof(parent));
-            ThrowHelper.ThrowIfArgumentNull(onGetChildDatas, nameof(onGetChildDatas));
+            ThrowUtil.ThrowIfArgumentNull(tree, nameof(tree));
+            ThrowUtil.ThrowIfArgumentNull(parent, nameof(parent));
+            ThrowUtil.ThrowIfArgumentNull(onGetChildDatas, nameof(onGetChildDatas));
 
             var childDatas = await onGetChildDatas(parent);
             if (childDatas == null)
@@ -40,9 +44,9 @@ namespace Decoherence.Collections.Trees
             ITree<TTargetData> targetTree,
             Func<TSourceData, TTargetData> converter)
         {
-            ThrowHelper.ThrowIfArgumentNull(sourceTree, nameof(sourceTree));
-            ThrowHelper.ThrowIfArgumentNull(targetTree, nameof(targetTree));
-            ThrowHelper.ThrowIfArgumentNull(converter, nameof(converter));
+            ThrowUtil.ThrowIfArgumentNull(sourceTree, nameof(sourceTree));
+            ThrowUtil.ThrowIfArgumentNull(targetTree, nameof(targetTree));
+            ThrowUtil.ThrowIfArgumentNull(converter, nameof(converter));
             
             if (sourceTree.Root == null)
             {
@@ -56,8 +60,8 @@ namespace Decoherence.Collections.Trees
         public static ITree<TTargetData> ConvertAll<TSourceData, TTargetData>(this IReadOnlyTree<TSourceData> sourceTree, 
             Func<TSourceData, TTargetData> converter)
         {
-            ThrowHelper.ThrowIfArgumentNull(sourceTree, nameof(sourceTree));
-            ThrowHelper.ThrowIfArgumentNull(converter, nameof(converter));
+            ThrowUtil.ThrowIfArgumentNull(sourceTree, nameof(sourceTree));
+            ThrowUtil.ThrowIfArgumentNull(converter, nameof(converter));
 
             var targetTree = new Tree<TTargetData>();
             ConvertTo(sourceTree, targetTree, converter);

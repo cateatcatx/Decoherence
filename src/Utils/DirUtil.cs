@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Decoherence
 {
+#if HIDE_DECOHERENCE
+    internal static class DirUtil
+#else
     public static class DirUtil
+#endif
     {
         /// <summary>
         /// 拷贝目录

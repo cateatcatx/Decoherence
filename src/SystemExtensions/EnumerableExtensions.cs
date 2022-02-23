@@ -5,7 +5,11 @@ using System.Linq;
 
 namespace Decoherence.SystemExtensions
 {
+#if HIDE_DECOHERENCE
+    internal static class EnumerableExtensions
+#else
     public static class EnumerableExtensions
+#endif
     {
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {

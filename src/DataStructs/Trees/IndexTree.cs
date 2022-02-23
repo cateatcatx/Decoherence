@@ -30,7 +30,7 @@ namespace Decoherence.Collections.Trees
 
         public IndexTree(Func<TData, TKey> data2Key)
         {
-            ThrowHelper.ThrowIfArgumentNull(data2Key, nameof(data2Key));
+            ThrowUtil.ThrowIfArgumentNull(data2Key, nameof(data2Key));
 
             mData2Key = data2Key;
         }
@@ -38,7 +38,7 @@ namespace Decoherence.Collections.Trees
         public INode<TData> SetRoot(TData data)
         {
             var key = mData2Key(data);
-            ThrowHelper.ThrowIfArgument(mDic.ContainsKey(key), nameof(data), $"Key {key} already exists.");
+            ThrowUtil.ThrowIfArgument(mDic.ContainsKey(key), nameof(data), $"Key {key} already exists.");
             
             var root = mTree.SetRoot(data);
             mDic.Add(key, root);
@@ -49,7 +49,7 @@ namespace Decoherence.Collections.Trees
         {
             var key = mData2Key(data);
             
-            ThrowHelper.ThrowIfArgument(mDic.ContainsKey(key), nameof(data), $"Key {key} already exists.");
+            ThrowUtil.ThrowIfArgument(mDic.ContainsKey(key), nameof(data), $"Key {key} already exists.");
 
             var child = mTree.AddChild(parent, data);
             mDic.Add(key, child);
