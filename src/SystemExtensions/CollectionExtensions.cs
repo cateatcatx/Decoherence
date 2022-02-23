@@ -7,11 +7,7 @@ namespace Decoherence.SystemExtensions
 #if HIDE_DECOHERENCE
     internal static class CollectionExtensions
 #else
-#if HIDE_DECOHERENCE
-    internal static class CollectionExtensions
-#else
     public static class CollectionExtensions
-#endif
 #endif
     {
 #if NET35
