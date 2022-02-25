@@ -1,10 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json.Linq;
 
 namespace Decoherence
 {
@@ -35,13 +33,7 @@ namespace Decoherence
 
             return sb.ToString();
         }
-        
-        public static JObject Post(string url, string contentType, JObject content)
-        {
-            var res = Post(url, contentType, content.ToString());
-            return JObject.Parse(res);
-        }
-        
+
         public static string Post(string url, string contentType, string content)
         {
             string result = "";
