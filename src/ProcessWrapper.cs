@@ -54,7 +54,7 @@ namespace Decoherence
         /// <returns>进程返回值</returns>
         public int Run()
         {
-            mLogger?.Verbose($"[ProcessWrapper][Run]{mProcess.StartInfo.FileName} {mProcess.StartInfo.Arguments}");
+            mLogger?.Verbose($"Run process: {mProcess.StartInfo.FileName} {mProcess.StartInfo.Arguments}");
             
             mProcess.Start();
             mProcess.WaitForExit();
