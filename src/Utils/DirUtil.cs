@@ -11,6 +11,13 @@ namespace Decoherence
     public static class DirUtil
 #endif
     {
+        public static bool IsDirEmpty(string dirPath)
+        {
+            ThrowUtil.ThrowIfDirectoryNotFound(dirPath);
+
+            return (Directory.GetFiles(dirPath).Length + Directory.GetDirectories(dirPath).Length) <= 0;
+        }
+        
         /// <summary>
         /// 拷贝目录
         /// </summary>
