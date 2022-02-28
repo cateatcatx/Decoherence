@@ -3,7 +3,11 @@
     /// <summary>
     /// Specifies the meaning and relative importance of a log event.
     /// </summary>
+#if HIDE_DECOHERENCE
+    internal enum LogLevel
+#else
     public enum LogLevel
+#endif
     {
         /// <summary>
         /// Anything and everything you might want to know about

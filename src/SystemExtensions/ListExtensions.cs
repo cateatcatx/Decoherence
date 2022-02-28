@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Linq;
 
@@ -102,6 +103,7 @@ namespace Decoherence.SystemExtensions
         }
 
 #if !NET35
+        [return: MaybeNull]
         public static T Find<T>(this IReadOnlyList<T> list, Predicate<T> match)
         {
             foreach (var item in list)

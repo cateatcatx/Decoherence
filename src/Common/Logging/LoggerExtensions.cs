@@ -1,6 +1,10 @@
 ﻿namespace Decoherence.Logging
 {
+#if HIDE_DECOHERENCE
+    internal static class LoggerExtensions
+#else
     public static class LoggerExtensions
+#endif
     {
         public static void Verbose(this ILogger self, string message)
         {
